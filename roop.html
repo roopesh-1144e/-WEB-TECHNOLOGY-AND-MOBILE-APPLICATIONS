@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Insurance Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* LOGIN PAGE */
+        #loginPage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background: white;
+            padding: 30px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .login-box h2 {
+            margin-bottom: 20px;
+            color: #1e88e5;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #1565c0;
+        }
+
+        /* WEBSITE PAGE (HIDDEN FIRST) */
+        #websitePage {
+            display: none;
+        }
+
+        header {
+            background: #1e88e5;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logout-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            background: red;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .logout-btn:hover {
+            background: darkred;
+        }
+
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            margin-bottom: 30px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        table th {
+            background: #1e88e5;
+            color: white;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+        }
+
+        /* Company Section */
+        .company-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .company-box img {
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid #1e88e5;
+        }
+
+        iframe {
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            border: 2px solid #1e88e5;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #1e88e5;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ✅ LOGIN PAGE -->
+<div id="loginPage">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <input type="text" id="username" placeholder="Enter Username" required>
+        <input type="password" id="password" placeholder="Enter Password" required>
+
+        <button onclick="login()">Login</button>
+
+        <p style="color:gray; font-size:14px;">
+            Demo Login: <b>admin</b> / <b>1234</b>
+        </p>
+    </div>
+</div>
+
+
+<!-- ✅ WEBSITE PAGE (HIDDEN UNTIL LOGIN) -->
+<div id="websitePage">
+
+    <header>
+        <h1>Online Insurance Management System</h1>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <nav>
+        <a href="#company">Company</a>
+        <a href="#policies">Policies</a>
+        <a href="#addpolicy">Add Policy</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- ✅ Company Location + Photo -->
+        <div class="company-box" id="company">
+            <h2>Insurance Company Details</h2>
+
+            <h3>📍 Company Location</h3>
+            <iframe
+                src="https://www.google.com/maps?q=LIC%20Head%20Office%20Mumbai&output=embed">
+            </iframe>
+
+            <h3 style="margin-top:20px;">🏢 Company Photo</h3>
+            <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1000&q=80"
+                 alt="Insurance Company Building">
+        </div>
+
+        <!-- ✅ Policies Table -->
+        <div id="policies">
+            <h2>Available Insurance Policies</h2>
+
+            <table>
+                <tr>
+                    <th>Policy ID</th>
+                    <th>Policy Name</th>
+                    <th>Type</th>
+                    <th>Premium</th>
+                    <th>Duration</th>
+                </tr>
+                <tr>
+                    <td>P001</td>
+                    <td>Life Secure Plan</td>
+                    <td>Life Insurance</td>
+                    <td>$500 / year</td>
+                    <td>20 Years</td>
+                </tr>
+                <tr>
+                    <td>P002</td>
+                    <td>Health Plus</td>
+                    <td>Health Insurance</td>
+                    <td>$300 / year</td>
+                    <td>10 Years</td>
+                </tr>
+                <tr>
+                    <td>P003</td>
+                    <td>Auto Protect</td>
+                    <td>Vehicle Insurance</td>
+                    <td>$200 / year</td>
+                    <td>5 Years</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ✅ Add Policy Form -->
+        <div id="addpolicy">
+            <h2>Add New Policy (Demo)</h2>
+
+            <form onsubmit="addPolicy(); return false;">
+                <input type="text" id="policyName" placeholder="Policy Name" required>
+
+                <select id="policyType">
+                    <option>Life Insurance</option>
+                    <option>Health Insurance</option>
+                    <option>Vehicle Insurance</option>
+                </select>
+
+                <input type="text" id="premium" placeholder="Premium Amount" required>
+                <input type="text" id="duration" placeholder="Duration" required>
+
+                <button type="submit">Add Policy</button>
+            </form>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Online Insurance Management System</p>
+    </footer>
+</div>
+
+
+<script>
+    function login() {
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+
+        if (user === "admin" && pass === "1234") {
+            document.getElementById("loginPage").style.display = "none";
+            document.getElementById("websitePage").style.display = "block";
+        } else {
+            alert("Invalid Username or Password!");
+        }
+    }
+
+    function logout() {
+        document.getElementById("websitePage").style.display = "none";
+        document.getElementById("loginPage").style.display = "flex";
+    }
+
+    function addPolicy() {
+        alert("Policy added successfully! (Demo only)");
+    }
+</script>
+
+</body>
+</html>
