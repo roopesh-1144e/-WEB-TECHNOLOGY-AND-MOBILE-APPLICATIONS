@@ -12,7 +12,7 @@
             padding: 0;
         }
 
-        /* LOGIN PAGE */
+        /* ================= LOGIN PAGE ================= */
         #loginPage {
             display: flex;
             justify-content: center;
@@ -24,9 +24,10 @@
             background: white;
             padding: 30px;
             width: 350px;
-            border-radius: 10px;
+            border-radius: 12px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
             text-align: center;
+            animation: fadeIn 1s ease;
         }
 
         .login-box h2 {
@@ -39,7 +40,7 @@
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 6px;
         }
 
         button {
@@ -48,7 +49,7 @@
             background: #1e88e5;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
         }
@@ -57,30 +58,50 @@
             background: #1565c0;
         }
 
-        /* WEBSITE PAGE (HIDDEN FIRST) */
+        /* ================= WEBSITE PAGE ================= */
         #websitePage {
             display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.8s ease;
+        }
+
+        /* When login success this class will add */
+        #websitePage.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0px);
         }
 
         header {
             background: #1e88e5;
             color: white;
-            padding: 15px;
+            padding: 18px;
             text-align: center;
             position: relative;
         }
 
-        .logout-btn {
-            position: absolute;
-            right: 20px;
+        /* Logout separate box in left top */
+        .logout-box {
+            position: fixed;
             top: 15px;
-            background: red;
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 14px;
+            left: 15px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            z-index: 1000;
         }
 
-        .logout-btn:hover {
+        .logout-box button {
+            background: red;
+            padding: 8px 14px;
+            font-size: 14px;
+            border-radius: 6px;
+            width: auto;
+        }
+
+        .logout-box button:hover {
             background: darkred;
         }
 
@@ -127,7 +148,7 @@
             background: white;
             padding: 20px;
             max-width: 500px;
-            border-radius: 5px;
+            border-radius: 8px;
         }
 
         select {
@@ -140,7 +161,7 @@
         .company-box {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 30px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
@@ -167,13 +188,20 @@
             padding: 10px;
             background: #1e88e5;
             color: white;
+            margin-top: 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.95);}
+            to {opacity: 1; transform: scale(1);}
         }
     </style>
 </head>
 
 <body>
 
-<!-- ✅ LOGIN PAGE -->
+<!-- ================= LOGIN PAGE ================= -->
 <div id="loginPage">
     <div class="login-box">
         <h2>Login</h2>
@@ -190,12 +218,16 @@
 </div>
 
 
-<!-- ✅ WEBSITE PAGE (HIDDEN UNTIL LOGIN) -->
+<!-- ================= WEBSITE PAGE ================= -->
 <div id="websitePage">
+
+    <!-- Logout Separate Box (Left Top Corner) -->
+    <div class="logout-box">
+        <button onclick="logout()">Logout</button>
+    </div>
 
     <header>
         <h1>Online Insurance Management System</h1>
-        <button class="logout-btn" onclick="logout()">Logout</button>
     </header>
 
     <nav>
@@ -206,21 +238,19 @@
 
     <div class="container">
 
-        <!-- ✅ Company Location + Photo -->
+        <!-- Company Location + Photo -->
         <div class="company-box" id="company">
             <h2>Insurance Company Details</h2>
 
             <h3>📍 Company Location</h3>
-            <iframe
-                src="https://www.google.com/maps?q=LIC%20Head%20Office%20Mumbai&output=embed">
-            </iframe>
+            <iframe src="https://www.google.com/maps?q=LIC%20Head%20Office%20Mumbai&output=embed"></iframe>
 
             <h3 style="margin-top:20px;">🏢 Company Photo</h3>
             <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1000&q=80"
                  alt="Insurance Company Building">
         </div>
 
-        <!-- ✅ Policies Table -->
+        <!-- Policies Table -->
         <div id="policies">
             <h2>Available Insurance Policies</h2>
 
@@ -256,7 +286,7 @@
             </table>
         </div>
 
-        <!-- ✅ Add Policy Form -->
+        <!-- Add Policy Form -->
         <div id="addpolicy">
             <h2>Add New Policy (Demo)</h2>
 
@@ -281,6 +311,7 @@
     <footer>
         <p>© 2026 Online Insurance Management System</p>
     </footer>
+
 </div>
 
 
@@ -291,13 +322,17 @@
 
         if (user === "admin" && pass === "1234") {
             document.getElementById("loginPage").style.display = "none";
-            document.getElementById("websitePage").style.display = "block";
+
+            let website = document.getElementById("websitePage");
+            website.classList.add("show");
+
         } else {
             alert("Invalid Username or Password!");
         }
     }
 
     function logout() {
+        document.getElementById("websitePage").classList.remove("show");
         document.getElementById("websitePage").style.display = "none";
         document.getElementById("loginPage").style.display = "flex";
     }
